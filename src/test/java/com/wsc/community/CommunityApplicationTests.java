@@ -3,6 +3,8 @@ package com.wsc.community;
 import com.wsc.community.Service.AlphaService;
 import com.wsc.community.dao.AlphaDao;
 import com.wsc.community.dao.AlphaDaoHibernateImpl;
+import com.wsc.community.dao.LoginTicketMapper;
+import com.wsc.community.entity.LoginTicket;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,20 @@ import java.util.Date;
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class) //设置配置类
 class  CommunityApplicationTests implements ApplicationContextAware {
+
+	//通过Spring容器向属性中注入对象
+	@Autowired
+	@Qualifier("alphaHibernate")
+	private AlphaDao alphaDao;
+
+	@Autowired
+	private AlphaService alphaService;
+
+	@Autowired
+	private  SimpleDateFormat simpleDateFormat;
+
+	@Autowired
+	private LoginTicketMapper loginTicketMapper;
 
 	@Test
 	void contextLoads() {
@@ -61,16 +77,6 @@ class  CommunityApplicationTests implements ApplicationContextAware {
 		System.out.println(simpleDateFormat.format(new Date()));
 	}
 
-	//通过Spring容器向属性中注入对象
-	@Autowired
-	@Qualifier("alphaHibernate")
-	private AlphaDao alphaDao;
-
-	@Autowired
-	private AlphaService alphaService;
-
-	@Autowired
-	private  SimpleDateFormat simpleDateFormat;
 
 	@Test
 	public void testDI(){
@@ -78,4 +84,25 @@ class  CommunityApplicationTests implements ApplicationContextAware {
 		System.out.println(alphaService);
 		System.out.println(simpleDateFormat);
 	}
+
+	@Test
+	public void testInsertLoginTicket(){
+		LoginTicket loginTicket = new LoginTicket();
+		loginTicket.setId(101);
+		loginTicket.setTicket("abc");
+		loginTicket.setStatus(0);
+		loginTicket.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 * 10));
+		int i = loginTicketMapper.insertLoginTicket(loginTicket);
+		System.out.println(i);
+	}
+
+	@Test
+	public void testSelectLoginTicket(){
+		LoginTicket loginTicket = loginTicketMapper.selectByTicket("abc");
+		System.out.println(loginTicket.getStatus());
+
+		loginTicketMapper.updateStatus(loginTicket.getTicket(), 1);
+		System.out.println(loginTicketMapper.selectByTicket("abc").getStatus());
+	}
+
 }
