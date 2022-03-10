@@ -169,4 +169,32 @@ public class UserService {
     public LoginTicket findLoginTicket(String ticket){
         return loginTicketMapper.selectByTicket(ticket);
     }
+
+    public int updateHeader(int userId, String headerUrl){
+        return userMapper.updateHeader(userId, headerUrl);
+    }
+
+    public Map<String, String> updatePassword(int userId, String oldPassword, String newPassword){
+        Map<String, String> map = new HashMap<>();
+        if(oldPassword == null){
+            map.put("oldPasswordMsg", "密码为空！");
+            return map;
+        }
+        if(newPassword == null){
+            map.put("newPasswordMsg", "密码为空！");
+            return map;
+        }
+
+        User user = userMapper.selectById(userId);
+        String password = CommunityUtil.md5(oldPassword + user.getSalt());
+        if(!user.getPassword().equals(password)){
+            map.put("oldPasswordMsg", "密码为不正确！");
+            return map;
+        }
+
+        String insertPassword = CommunityUtil.md5(newPassword + user.getSalt());
+        userMapper.updatePassword(userId, insertPassword);
+        map.put("msg", "密码修改成功！");
+        return map;
+    }
 }

@@ -50,6 +50,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
         //Controller请求处理完，没有处理模板前
         User user = hostHolder.getUser();
         if(user != null && modelAndView != null){
+            //将其保存到model供模板使用
             modelAndView.addObject("loginUser", user);
         }
     }

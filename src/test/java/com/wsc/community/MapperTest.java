@@ -1,5 +1,6 @@
 package com.wsc.community;
 
+import com.wsc.community.Service.UserService;
 import com.wsc.community.dao.DiscussPostMapper;
 import com.wsc.community.dao.UserMapper;
 import com.wsc.community.entity.DiscussPost;
@@ -21,6 +22,9 @@ public class MapperTest {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Test
     public void testSelectUser(){
@@ -109,5 +113,10 @@ public class MapperTest {
 
             return result;
         }
+    }
+
+    @Test
+    public void test2(){
+        userService.updatePassword(155, "1234", "1234");
     }
 }
