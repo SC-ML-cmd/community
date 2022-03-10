@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.GsonTester;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -23,7 +24,7 @@ public class MapperTest {
 
     @Test
     public void testSelectUser(){
-        User user = userMapper.selectById(101);
+        User user = userMapper.selectById(155);
         System.out.println(user);
 
         user = userMapper.selectByName("liubei");
@@ -68,5 +69,45 @@ public class MapperTest {
         }
         int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
+    }
+    @Test
+    public void test(){
+        Solution solution = new Solution();
+        System.out.println(solution.countSubstrings("aaa"));
+    }
+
+    class Solution {
+        //一维解决不了，就想二维
+        //回文子串，若两边元素相等，中间的元素为回文串，则整体一定为回文串
+        // dp[i][j] 表示i，j边界组成子串是否为回文串
+        public int countSubstrings(String s) {
+            boolean[][] dp = new boolean[s.length()][s.length()];
+
+
+            int result = 0;
+            for(int i = dp.length-1; i >= 0; i--){
+                for(int j = i; j < dp[0].length; j++){
+                    if(s.charAt(i) != s.charAt(j)){
+                        dp[i][j] = false;
+                    }
+                    else {
+                        if(j-i  == 0 || j - i == 1){
+                            dp[i][j] = true;
+                            result ++;
+                        }else{
+                            System.out.println("i: " + i +  " j :" + j);
+                            //使用动态规划向内缩
+                            dp[i][j] = dp[i+1][j-1];
+                            if(dp[i][j]){
+                                result ++;
+                            }
+                        }
+                    }
+                }
+                System.out.println(Arrays.toString(dp[i]));
+            }
+
+            return result;
+        }
     }
 }
