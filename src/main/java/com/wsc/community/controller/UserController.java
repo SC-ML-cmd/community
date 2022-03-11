@@ -1,6 +1,7 @@
 package com.wsc.community.controller;
 
 import com.wsc.community.Service.UserService;
+import com.wsc.community.annotation.LoginRequired;
 import com.wsc.community.entity.User;
 import com.wsc.community.util.CommunityUtil;
 import com.wsc.community.util.HostHolder;
@@ -43,11 +44,13 @@ public class UserController {
     private HostHolder hostHolder;
 
 
+    @LoginRequired
     @RequestMapping(path = "/setting",method = RequestMethod.GET)
     public String getSettingPage(){
         return "/site/setting";
     }
 
+    @LoginRequired
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model){
         if(headerImage == null){
@@ -57,6 +60,10 @@ public class UserController {
 
         //取得后缀
         String fileName = headerImage.getOriginalFilename();
+        if(StringUtils.isBlank(fileName)){
+            model.addAttribute("error", "文件的格式不正确！");
+            return "/site/setting";
+        }
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         if(StringUtils.isBlank(suffix)){
             model.addAttribute("error", "文件的格式不正确！");
@@ -95,13 +102,13 @@ public class UserController {
         //文件后缀
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         //响应图片
-        FileInputStream fis = null;
+        FileInputStream fis;
         response.setContentType("image/" + suffix);
         try {
             fis = new FileInputStream(fileName);
             OutputStream os = response.getOutputStream();
             byte[] buffer = new byte[1024];
-            int b = 0;
+            int b;
             while((b = fis.read(buffer)) != -1){
                 os.write(buffer, 0, b);
             }
@@ -112,6 +119,7 @@ public class UserController {
     }
 
     //修改用户密码
+    @LoginRequired
     @RequestMapping(path = "/password")
     public String modifyPassword(Model model, String oldPassword, String newPassword){
         //用户对象
