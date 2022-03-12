@@ -1,6 +1,6 @@
 package com.wsc.community.controller;
 
-import com.wsc.community.Service.UserService;
+import com.wsc.community.service.UserService;
 import com.wsc.community.entity.LoginTicket;
 import com.wsc.community.entity.User;
 import com.wsc.community.util.CookieUtil;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;

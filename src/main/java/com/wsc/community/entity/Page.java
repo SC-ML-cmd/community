@@ -79,6 +79,10 @@ public class Page {
         return from < 1 ? 1 : from;
     }
 
+    /**
+     * 获取结束页码
+     * @return
+     */
     public int getTo(){
         int to = current + 2;
         int total = getTotal();

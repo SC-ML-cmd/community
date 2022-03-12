@@ -1,4 +1,4 @@
-package com.wsc.community.Service;
+package com.wsc.community.service;
 
 import com.wsc.community.dao.LoginTicketMapper;
 import com.wsc.community.dao.UserMapper;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.processor.SpringActionTagProcessor;
 
 import java.util.Date;
 import java.util.HashMap;

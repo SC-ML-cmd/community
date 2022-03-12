@@ -36,4 +36,14 @@
         insert into discuss_post(<include refid="insertFields"></include>)
         values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
     </insert>
+
+    <select id="selectDiscussPostById" resultType="DiscussPost">
+        SELECT <include refid="selectFields"></include>
+        from discuss_post
+        where id = #{id}
+    </select>
+    
+    <update id="updateCommentCount">
+        update discuss_post set comment_count = #{commentCount} WHERE id = #{id}
+    </update>
 </mapper>

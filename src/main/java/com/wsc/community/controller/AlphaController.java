@@ -1,6 +1,6 @@
 package com.wsc.community.controller;
 
-import com.wsc.community.Service.AlphaService;
+import com.wsc.community.service.AlphaService;
 import com.wsc.community.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

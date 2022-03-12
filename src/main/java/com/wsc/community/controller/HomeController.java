@@ -1,7 +1,7 @@
 package com.wsc.community.controller;
 
-import com.wsc.community.Service.DiscussPostService;
-import com.wsc.community.Service.UserService;
+import com.wsc.community.service.DiscussPostService;
+import com.wsc.community.service.UserService;
 
 import com.wsc.community.entity.DiscussPost;
 import com.wsc.community.entity.Page;

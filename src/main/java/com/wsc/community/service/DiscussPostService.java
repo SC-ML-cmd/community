@@ -1,4 +1,4 @@
-package com.wsc.community.Service;
+package com.wsc.community.service;
 
 import com.wsc.community.dao.DiscussPostMapper;
 import com.wsc.community.entity.DiscussPost;
@@ -41,5 +41,13 @@ public class DiscussPostService {
         post.setContent(sensitiveFilter.filter(post.getContent()));
 
         return discussPostMapper.insertDiscussPost(post);
+    }
+
+    public DiscussPost findDiscussPost(int id){
+        return discussPostMapper.selectDiscussPostById(id);
+    }
+
+    public int updateCommentCount(int id, int commentCount){
+        return discussPostMapper.updateCommentCount(id, commentCount);
     }
 }

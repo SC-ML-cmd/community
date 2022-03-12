@@ -1,6 +1,6 @@
 package com.wsc.community.controller;
 
-import com.wsc.community.Service.UserService;
+import com.wsc.community.service.UserService;
 import com.wsc.community.annotation.LoginRequired;
 import com.wsc.community.entity.User;
 import com.wsc.community.util.CommunityUtil;

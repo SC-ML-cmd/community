@@ -1,6 +1,6 @@
 package com.wsc.community;
 
-import com.wsc.community.Service.UserService;
+import com.wsc.community.service.UserService;
 import com.wsc.community.dao.DiscussPostMapper;
 import com.wsc.community.dao.UserMapper;
 import com.wsc.community.entity.DiscussPost;
@@ -8,7 +8,6 @@ import com.wsc.community.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.GsonTester;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.*;
@@ -79,28 +78,77 @@ public class MapperTest {
 //        System.out.println(solution.countSubstrings("aaa"));
     }
 
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+    class Node {
+        public int val;
+        public List<Node> children;
+
+        public Node() {}
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, List<Node> _children) {
+            val = _val;
+            children = _children;
+        }
+    };
     class Solution {
-        public int[] dailyTemperatures(int[] temperatures) {
-            int[] result = new int[temperatures.length];
-            Deque<Integer> stack = new LinkedList<>();
-
-            for(int i = 0; i < temperatures.length; i++){
-                //大于则循环弹出
-                while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
-                    int index = stack.pop();
-                    result[index] = i - index;
-                }
-
-                //小于则压栈
-                stack.push(i);
+        // 使用统一遍历的方法
+        public List<Integer> postorder(Node root) {
+            List<Integer> res = new LinkedList<>();
+            if(root == null){
+                return res;
             }
+            Deque<Node> stack = new LinkedList<>();
+            Node node;
+            stack.push(root);
 
-            return result;
+            while(!stack.isEmpty()){
+                node = stack.peek();
+                if(node != null){
+                    stack.push(null); //表明当前节点已经遍历过
+                    if(node.children.size() > 0){
+                        for(int i = root.children.size() - 1; i >= 0; i--){
+                            System.out.println("i: " + i);
+                            System.out.println("root.children.get(i): " + root.children.get(i).val);
+                            stack.push(root.children.get(i));
+                        }
+                    }
+
+                }
+                else{
+                    stack.pop();
+                    Node cur = stack.pop();
+                    res.add(cur.val);
+                }
+            }
+            return res;
         }
     }
 
     @Test
     public void test2(){
-        userService.updatePassword(155, "1234", "1234");
+        Node root = new Node(1, new ArrayList<>());
+        root.children.add(new Node(3, new ArrayList<>()));
+        System.out.println(new Solution().postorder(root));
     }
 }

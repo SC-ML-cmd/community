@@ -1,8 +1,7 @@
 package com.wsc.community.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.wsc.community.Config.KaptchaConfig;
-import com.wsc.community.Service.UserService;
+import com.wsc.community.service.UserService;
 import com.wsc.community.entity.User;
 import com.wsc.community.util.CommunityConstant;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;

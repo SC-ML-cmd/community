@@ -1,8 +1,7 @@
 package com.wsc.community;
 
-import com.wsc.community.Service.AlphaService;
+import com.wsc.community.service.AlphaService;
 import com.wsc.community.dao.AlphaDao;
-import com.wsc.community.dao.AlphaDaoHibernateImpl;
 import com.wsc.community.dao.LoginTicketMapper;
 import com.wsc.community.entity.LoginTicket;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
